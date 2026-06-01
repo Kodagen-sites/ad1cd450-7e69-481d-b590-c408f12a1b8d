@@ -1,0 +1,62 @@
+
+> signal-ai@0.1.0 gen:all
+> npm run gen:images && npm run gen:videos && npm run gen:stitch && npm run gen:frames
+
+
+> signal-ai@0.1.0 gen:images
+> tsx scripts/generate-images.ts
+
+
+🎨 Image Generation (platform client → Vertex/Gemini)
+   Concurrency: 4
+
+Found 4; 0 already in manifest; 4 to generate.
+
+✓ [1/4] section-dashboard  $0.13
+✓ [2/4] scene-1/end  $0.13
+✓ [3/4] section-network  $0.13
+✓ [4/4] scene-1/start  $0.13
+
+Done. Generated 4, skipped 0, failed 0.
+Spend: $0.52
+
+> signal-ai@0.1.0 gen:videos
+> tsx scripts/generate-videos.ts
+
+
+🎬 Video Generation (platform client → Vertex/Veo)
+
+Found 1 scene (concurrency=3)
+
+→ scene-1 queued (vertex/veo-3.1-generate-001)
+  polling..........
+✓ scene-1  $1.45
+  ↓ raw/scene-1.mp4 (4194 KB)
+---
+Generated 1, skipped 0, failed 0.
+Spend: $1.45
+
+> signal-ai@0.1.0 gen:stitch
+> bash scripts/stitch-scenes.sh
+
+→ Stitching 1 scenes into raw/final.mp4
+✓ Wrote raw/final.mp4 (duration: 8.000000s)
+
+> signal-ai@0.1.0 gen:frames
+> bash scripts/extract-frames.sh raw/final.mp4 && tsx scripts/upload-frames.ts
+
+→ Extracting at 24fps, width 1920px from raw/final.mp4
+[swscaler @ 0x5600f7591480] [swscaler @ 0x5600f759e440] deprecated pixel format used, make sure you did set range correctly
+[swscaler @ 0x5600f7591480] [swscaler @ 0x5600f75ef380] deprecated pixel format used, make sure you did set range correctly
+[swscaler @ 0x5600f7591480] [swscaler @ 0x5600f764bfc0] deprecated pixel format used, make sure you did set range correctly
+[swscaler @ 0x5600f7591480] [swscaler @ 0x5600f76a7ac0] deprecated pixel format used, make sure you did set range correctly
+[swscaler @ 0x5600f7591480] [swscaler @ 0x5600f7704940] deprecated pixel format used, make sure you did set range correctly
+✓ Wrote 192 frames to public/frames
+✓ Wrote content/frames-manifest.json
+✓ Total size: 19M
+⤴  Uploading 192 frames to Storage (scene-1/) at concurrency 8...
+   50/192
+   100/192
+   150/192
+✓ Uploaded 192/192 frames
+✓ Manifest updated: frameDir=https://zykgxmubadvmlxpkqrzd.supabase.co/storage/v1/object/public/site-assets/ad1cd450-7e69-481d-b590-c408f12a1b8d/frames/scene-1

@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Locked brand palette — Deep Navy & Cream */
+  --color-cream: #faf6ee;
+  --color-sand: #e8dfcf;
+  --color-navy: #1f3252;
+  --color-ink: #0e1c33;
+
+  /* Consumed by ScrollCanvas (canvas backdrop + loader shell). The cinematic
+     frames are dark navy, so the surround/letterbox stays dark. */
+  --bg-color: #0e1c33;
+  --fg-color: #faf6ee;
+
+  /* HeroScrollText accent overrides */
+  --primary-color: #1f3252;
+  --accent-color: #1f3252;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-navy);
+  color: var(--color-cream);
+}
+
+/* Anchor scroll offset so fixed header doesn't cover section tops */
+section[id] {
+  scroll-margin-top: 96px;
+}
